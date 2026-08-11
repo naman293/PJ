@@ -1,0 +1,400 @@
+@import "tailwindcss";
+@source "../src";
+@import "tw-animate-css";
+
+/* ── Rogient Block — self-hosted OTF ──────────────────────── */
+@font-face {
+  font-family: "Rogient Block";
+  src: url("/fonts/rogient-block.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Achtung Bravo — self-hosted TTF ──────────────────────── */
+@font-face {
+  font-family: "Achtung Bravo";
+  src: url("/fonts/AchtungBravo-Clean.woff") format("woff"),
+       url("/fonts/AchtungBravo-Clean.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * PJ EXPLAINED — Creator Design System v2.0
+ * Ink 60 / Paper 30 / Signal Red 10 / Headline Yellow <=2
+ * Typography: Bangers (display), Inter (body)
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  /* Achtung Bravo — the custom display font */
+  --font-display: "Achtung Bravo", "Bangers", "Impact", "Arial Black", sans-serif;
+  --font-sans: "Space Grotesk", "Inter", system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Brand tokens */
+  --color-ink: var(--ink);
+  --color-carbon: var(--carbon);
+  --color-paper: var(--paper);
+  --color-signal: var(--signal);
+  --color-headline-yellow: var(--headline-yellow);
+  --color-accent-blue: var(--accent-blue);
+  --color-ash: var(--ash);
+  --color-deep-red: var(--deep-red);
+
+  --container-site: 1320px;
+}
+
+:root {
+  --radius: 0.75rem;
+
+  --ink: oklch(0.12 0.005 0);        /* #0A0A0B near-black */
+  --carbon: oklch(0.18 0.005 0);     /* #171718 */
+  --paper: oklch(0.955 0.008 84);    /* #F4F0EA warm-white */
+  
+  /* Color Hunt Palette: 8b1e2de63946f4d35e457b9d */
+  --deep-red: #8b1e2d;
+  --signal: #e63946;
+  --headline-yellow: #f4d35e;
+  --accent-blue: #457b9d;
+
+  --ash: oklch(0.68 0.008 76);       /* #9A9490 */
+
+  --background: var(--ink);
+  --foreground: var(--paper);
+  --card: var(--carbon);
+  --card-foreground: var(--paper);
+  --popover: var(--carbon);
+  --popover-foreground: var(--paper);
+  --primary: var(--signal);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: var(--carbon);
+  --secondary-foreground: var(--paper);
+  --muted: var(--carbon);
+  --muted-foreground: var(--ash);
+  --accent: var(--carbon);
+  --accent-foreground: var(--paper);
+  --destructive: var(--signal);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: color-mix(in oklch, var(--paper) 10%, transparent);
+  --input: color-mix(in oklch, var(--paper) 14%, transparent);
+  --ring: var(--signal);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  *::selection {
+    background: var(--color-primary);
+    color: white;
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+}
+
+/* ─── Typography Utilities ─────────────────────────────── */
+
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 400;            /* Bangers is naturally bold at 400 */
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: 0.05em;
+}
+
+@utility display-hero {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.85;
+  letter-spacing: normal;
+}
+
+@utility label-xs {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  line-height: 1.1;
+}
+
+/* ─── Placeholder Blocks ───────────────────────────────── */
+
+@utility ph {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px dashed color-mix(in oklch, var(--paper) 25%, transparent);
+  background-image: repeating-linear-gradient(
+    135deg,
+    color-mix(in oklch, var(--paper) 4%, transparent) 0 10px,
+    transparent 10px 20px
+  );
+  background-color: var(--carbon);
+  color: var(--ash);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+@utility ph-light {
+  border-color: color-mix(in oklch, var(--ink) 30%, transparent);
+  background-color: color-mix(in oklch, var(--ink) 5%, var(--paper));
+  color: color-mix(in oklch, var(--ink) 65%, transparent);
+  background-image: repeating-linear-gradient(
+    135deg,
+    color-mix(in oklch, var(--ink) 6%, transparent) 0 10px,
+    transparent 10px 20px
+  );
+}
+
+/* ─── Film-strip ───────────────────────────────────────── */
+
+@utility filmstrip {
+  height: 22px;
+  background:
+    repeating-linear-gradient(
+        90deg,
+        transparent 0 10px,
+        color-mix(in oklch, var(--paper) 55%, transparent) 10px 20px
+      )
+      center / auto 6px no-repeat;
+  border-block: 1px solid color-mix(in oklch, var(--paper) 18%, transparent);
+}
+
+/* ─── Grain overlay ────────────────────────────────────── */
+
+@utility grain {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.25;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+  }
+}
+
+/* ─── Hover lift ───────────────────────────────────────── */
+
+@utility hover-lift {
+  transition:
+    transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 180ms ease-out,
+    box-shadow 220ms ease-out;
+  &:hover {
+    transform: translateY(-6px) scale(1.015);
+    border-color: color-mix(in oklch, var(--signal) 60%, transparent);
+    box-shadow: 0 20px 40px oklch(0 0 0 / 40%);
+  }
+}
+
+/* ─── Scrolling ticker tape ────────────────────────────── */
+
+@utility ticker {
+  display: flex;
+  gap: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@utility ticker-inner {
+  display: flex;
+  gap: 0;
+  animation: ticker-scroll 28s linear infinite;
+}
+
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── Noise radial background ──────────────────────────── */
+
+@utility noise-bg {
+  background: var(--ink);
+}
+
+/* ─── Glowing accent circle ────────────────────────────── */
+
+@utility glow-red {
+  background: radial-gradient(circle, color-mix(in srgb, var(--signal) 22%, transparent) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ─── Red underline ────────────────────────────────────── */
+
+@utility underline-red {
+  position: relative;
+  display: inline-block;
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--signal);
+    border-radius: 2px;
+  }
+}
+
+/* ─── Card border glow on hover ─────────────────────────── */
+
+@utility card-glow {
+  transition:
+    box-shadow 300ms ease,
+    border-color 300ms ease;
+  &:hover {
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--signal) 50%, transparent), 0 20px 60px color-mix(in srgb, var(--signal) 12%, transparent);
+    border-color: color-mix(in srgb, var(--signal) 40%, transparent);
+  }
+}
+
+/* ─── Scroll-reveal base (JS adds .revealed) ───────────── */
+
+.reveal-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-up.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-stagger.revealed > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0ms; }
+.reveal-stagger.revealed > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 100ms; }
+.reveal-stagger.revealed > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 200ms; }
+.reveal-stagger.revealed > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 300ms; }
+.reveal-stagger.revealed > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 400ms; }
+.reveal-stagger.revealed > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 500ms; }
+
+/* ─── Video card fan cursor glow ───────────────────────── */
+.fan-card {
+  cursor: pointer;
+  transition: transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 350ms ease;
+}
+.fan-card:hover {
+  z-index: 10;
+  transform: rotate(0deg) translateY(-24px) scale(1.08) !important;
+  box-shadow: 0 32px 64px oklch(0 0 0 / 60%), 0 0 0 2px var(--signal);
+}
+
+/* ─── Hero text stroke ─────────────────────────────────── */
+
+.text-stroke {
+  -webkit-text-stroke: 2px oklch(1 0 0 / 18%);
+  color: transparent;
+}
+
+.text-stroke-signal {
+  -webkit-text-stroke: 2px var(--signal);
+  color: transparent;
+}
+
+/* ─── Animated gradient text ───────────────────────────── */
+
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-text {
+  background: linear-gradient(270deg, var(--signal), var(--headline-yellow), var(--signal));
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 6s ease infinite;
+}
+
+/* ─── Parallax container ───────────────────────────────── */
+
+.parallax-wrapper {
+  will-change: transform;
+}
+
+/* ─── Stats counter pulse ──────────────────────────────── */
+
+@keyframes stat-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.7; }
+}
+
+/* ─── Media preference override ────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .ticker-inner {
+    animation: none;
+  }
+}
